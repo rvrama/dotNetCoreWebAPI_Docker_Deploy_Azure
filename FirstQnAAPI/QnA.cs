@@ -8,5 +8,7 @@
 
         public bool? isAnswer { get; set; }
 
+        public string ChoiceTitle { get; set; }
+
     }
 }

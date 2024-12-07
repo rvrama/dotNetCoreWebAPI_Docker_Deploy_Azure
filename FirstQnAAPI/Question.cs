@@ -4,8 +4,8 @@
     {
         public int QuestionId { get; set; }
         public string? QuestionTitle {  get; set; }
-
         public string? QuestionDescription { get; set; }
+        public int GroupId { get; set; }
 
     }
 }

@@ -12,8 +12,24 @@ namespace FirstQnAAPI.Data
         public FirstQnAAPIContext (DbContextOptions<FirstQnAAPIContext> options)
             : base(options)
         {
+
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<QnA>()
+                .HasNoKey();
+            //.HasOne(p => p.Blog)
+            //.WithMany(b => b.Posts)
+            //.HasForeignKey(p => p.BlogUrl)
+            //.HasPrincipalKey(b => b.Url);
         }
 
-        public DbSet<FirstQnAAPI.Question> Question { get; set; } = default!;
+
+
+        public DbSet<FirstQnAAPI.Question> Question { get; set; }
+        public DbSet<FirstQnAAPI.QnA> QnA { get; set; } 
+        public DbSet<FirstQnAAPI.Group> Group { get; set; }
+
+
     }
 }

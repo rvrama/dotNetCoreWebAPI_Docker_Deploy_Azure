@@ -5,6 +5,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<FirstQnAAPIContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FirstQnAAPIContext") ?? throw new InvalidOperationException("Connection string 'FirstQnAAPIContext' not found.")));
 
+
+//Add Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "Api", policy =>
+    {
+        policy.WithOrigins("*");
+    });
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -13,6 +22,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCors("Api");
+//app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

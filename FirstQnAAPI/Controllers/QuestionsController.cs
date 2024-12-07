@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FirstQnAAPI.Data;
+using Microsoft.AspNetCore.Cors;
 
 namespace FirstQnAAPI.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class QuestionsController : ControllerBase
@@ -22,9 +24,9 @@ namespace FirstQnAAPI.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Question>>> GetQuestion()
+        public ActionResult<IEnumerable<Question>> GetQuestion()
         {
-            return await _context.Question.ToListAsync();
+            return  _context.Question;
         }
 
         // GET: api/Questions/5
