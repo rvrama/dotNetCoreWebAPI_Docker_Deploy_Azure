@@ -13,7 +13,10 @@ namespace FirstQnAAPI.Data
         [Required]
         public string choices {get; set;}
 
+        public int groupId{get; set;}
+
         public int choiceType {get; set; }
+ 
         public int answerChoiceId {get; set;}
 
     }

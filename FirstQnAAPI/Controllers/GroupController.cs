@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FirstQnAAPI.Data;
+using Microsoft.AspNetCore.Cors;
 
 namespace FirstQnAAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
     public class GroupController : ControllerBase
     {
         private readonly FirstQnAAPIContext _context;

@@ -14,35 +14,32 @@ namespace FirstQnAAPI.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionsListController : ControllerBase
+    [EnableCors]
+    public class QuestionsListController(FirstQnAAPIContext context) : ControllerBase
     {
-        private readonly FirstQnAAPIContext _context;
-
-        public QuestionsListController(FirstQnAAPIContext context)
-        {
-            _context = context;
-        }
+        private readonly FirstQnAAPIContext _context = context;
 
         // GET: api/QuestionsList
         [HttpGet]
         public ActionResult<List<QuestionList>> GetQuestionsList()
         {
-            List<QuestionList> qmList = new List<QuestionList>();
-            var questionList = _context.Question.ToList();
-            foreach (Question a in questionList)
+            List<QuestionList> qmList = [];
+            var questionList = _context.QBMaster.ToList();
+            foreach (QBMaster a in questionList)
             {
-                List<string> choices = _context.QnA.Where<QnA>(
+                List<string> choices = [.. _context.ChoicesMaster.Where<ChoicesMaster>(
                                         b => (b.QuestionId==a.QuestionId)
-                                        ).Select(a => a.ChoiceTitle).ToList();
+                                        ).Select(a => a.ChoiceText)];
 
                 string choiceText=string.Join(",", choices);
                 QuestionList qm = new()
                  {
                      questionId = a.QuestionId,
-                     questionTxt = a.QuestionTitle,
+                     questionTxt = a.QuestionText,
+                     groupId = a.GroupId,
                      choices = choiceText,
-                     choiceType = 1, //hardcoded for now...need to update the db to get the value
-                     answerChoiceId = 2 //hardcoded for now...need to update the db to get the value through dbset 
+                     choiceType = a.ChoiceType, 
+                     answerChoiceId = a.AnswerChoiceId 
                  };
                  qmList.Add(qm);
             }

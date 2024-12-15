@@ -11,9 +11,16 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "Api", policy =>
     {
-        policy.WithOrigins("*");
+        policy.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .WithExposedHeaders("content-disposition")
+            .AllowAnyHeader()
+            //.AllowCredentials()
+            .SetPreflightMaxAge(TimeSpan.FromSeconds(3600));
     });
 });
+
 // Add services to the container.
 
 builder.Services.AddControllers();
