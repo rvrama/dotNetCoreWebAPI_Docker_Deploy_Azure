@@ -8,3 +8,8 @@ Accept: application/json
 
 GET {{FirstQnAAPI_HostAddress}}/api/Questions/
 Accept: application/json
+
+
+GET {{FirstQnAAPI_HostAddress}}/api/questionslist
+
+###
